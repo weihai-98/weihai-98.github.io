@@ -1,4 +1,4 @@
-/* Minimal GitHub Pages style: text-first, readable, and easy to customize. */
+/* Static GitHub Pages academic style: compact, readable, and data-driven. */
 :root {
   color-scheme: light;
   --bg: #f7f8fa;
@@ -18,10 +18,6 @@
 
 * {
   box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 body {
@@ -58,7 +54,7 @@ a:hover {
 
 .page {
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
+  grid-template-columns: 290px minmax(0, 1fr);
   gap: 2.2rem;
   width: min(1120px, calc(100% - 2rem));
   margin: 0 auto;
@@ -77,37 +73,20 @@ a:hover {
 }
 
 .portrait {
-  display: grid;
-  place-items: center;
-  width: 152px;
-  height: 152px;
+  width: 172px;
+  height: 172px;
   margin: 0 auto 1.1rem;
+  overflow: hidden;
   border: 1px solid #bfd3ec;
   border-radius: 50%;
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.9)),
-    url("assets/research-avatar.jpg") center / cover;
-}
-
-.portrait span {
-  display: grid;
-  place-items: center;
-  width: 74px;
-  height: 74px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(31, 111, 235, 0.24);
-  color: var(--accent-dark);
-  font-size: 1.55rem;
-  font-weight: 700;
-  letter-spacing: 0;
+  background: #f0f4f8;
 }
 
 .portrait img {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
   object-fit: cover;
+  object-position: center 22%;
 }
 
 .profile h1 {
@@ -125,16 +104,15 @@ a:hover {
 }
 
 .profile-title,
-.profile-affiliation,
-.profile-location {
+.profile-meta {
   margin: 0.55rem 0;
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 0.94rem;
 }
 
 .profile-title {
   color: var(--text);
-  font-weight: 650;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -145,12 +123,22 @@ a:hover {
 }
 
 .profile-link {
-  display: block;
-  padding: 0.5rem 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.48rem;
+  min-height: 42px;
+  padding: 0.45rem 0.65rem;
   border: 1px solid var(--line);
   border-radius: 6px;
   color: var(--text);
-  text-align: center;
+  font-weight: 600;
+}
+
+.profile-link svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
 }
 
 .profile-link:hover {
@@ -168,18 +156,30 @@ a:hover {
   top: 0;
   z-index: 10;
   display: flex;
-  gap: 1rem;
+  gap: 0.35rem;
   margin-bottom: 1rem;
   padding: 0.8rem 0;
-  background: rgba(247, 248, 250, 0.92);
+  background: rgba(247, 248, 250, 0.94);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
 }
 
 .top-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0.1rem 0.58rem;
+  border-radius: 6px;
   color: var(--muted);
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 700;
+}
+
+.top-nav a:hover,
+.top-nav a[aria-current="page"] {
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  text-decoration: none;
 }
 
 .section {
@@ -190,14 +190,22 @@ a:hover {
 .section h2 {
   margin: 0 0 0.8rem;
   color: var(--text);
-  font-size: 1.55rem;
+  font-size: 1.58rem;
   line-height: 1.25;
 }
 
-.section h3 {
+.section h3,
+.section h4 {
   margin: 0;
-  font-size: 1.02rem;
   line-height: 1.38;
+}
+
+.section h3 {
+  font-size: 1.12rem;
+}
+
+.section h4 {
+  font-size: 1.04rem;
 }
 
 .section p {
@@ -212,13 +220,11 @@ a:hover {
   margin-bottom: 0.4rem;
 }
 
-.section-heading p {
+.section-heading p,
+.publication-note,
+.cv-intro {
   color: var(--muted);
   font-size: 0.95rem;
-}
-
-.compact-section {
-  padding-top: 1.15rem;
 }
 
 .tags,
@@ -240,94 +246,7 @@ a:hover {
   background: var(--chip);
   color: var(--chip-text);
   font-size: 0.83rem;
-  font-weight: 600;
-}
-
-.news-list,
-.award-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.news-list li,
-.award-list li {
-  display: grid;
-  grid-template-columns: 5.2rem 1fr;
-  gap: 0.9rem;
-  padding: 0.36rem 0;
-}
-
-.news-list time,
-.award-list span,
-.timeline-date {
-  color: var(--muted);
-  font-size: 0.92rem;
-  font-weight: 650;
-}
-
-.publication-list {
-  display: grid;
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
-  list-style-position: inside;
-}
-
-.publication {
-  padding: 1rem 0;
-  border-bottom: 1px solid #edf1f5;
-}
-
-.publication::marker {
-  color: var(--muted);
   font-weight: 700;
-}
-
-.publication h3 {
-  display: inline;
-  font-size: 1.06rem;
-}
-
-.authors {
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-
-.venue {
-  color: #364557;
-  font-weight: 650;
-}
-
-.paper-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
-}
-
-.paper-link {
-  display: inline-flex;
-  align-items: center;
-  min-height: 30px;
-  padding: 0.18rem 0.62rem;
-  border: 1px solid #a8c7fa;
-  border-radius: 6px;
-  background: var(--accent-soft);
-  color: var(--accent-dark);
-  font-size: 0.88rem;
-  font-weight: 700;
-}
-
-.paper-link:hover {
-  background: #dceaff;
-  text-decoration: none;
-}
-
-.paper-link.disabled {
-  border-color: var(--line);
-  background: #f3f5f7;
-  color: #8a96a3;
 }
 
 .timeline {
@@ -341,32 +260,152 @@ a:hover {
   gap: 1rem;
 }
 
+.timeline-date {
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
 .role {
   color: var(--accent-dark);
-  font-weight: 650;
+  font-weight: 700;
 }
 
-.two-column {
+.publication-groups {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2rem;
+  gap: 1.4rem;
+  margin-top: 1.2rem;
 }
 
-.skill-grid {
+.publication-year {
+  padding-top: 0.2rem;
+}
+
+.publication-year > h3 {
+  margin-bottom: 0.45rem;
+  color: var(--accent-dark);
+  font-size: 1.2rem;
+}
+
+.publication-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.95rem;
+  margin: 0;
+  padding: 0;
+  list-style-position: inside;
+}
+
+.publication {
+  position: relative;
+  padding: 1rem 0;
+  border-bottom: 1px solid #edf1f5;
+}
+
+.publication::marker {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.publication-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 1rem;
 }
 
-.skill-group {
-  padding: 0.95rem;
+.publication-markers {
+  flex: 0 0 auto;
+  min-width: 1.7rem;
+  color: #9b4a00;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1;
+  text-align: right;
+}
+
+.authors {
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.author-name {
+  font-weight: 800;
+}
+
+.self-author {
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+  text-decoration-thickness: 0.08em;
+}
+
+.venue {
+  color: #364557;
+  font-weight: 700;
+}
+
+.paper-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.paper-link,
+.primary-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0.18rem 0.62rem;
+  border: 1px solid #a8c7fa;
+  border-radius: 6px;
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.paper-link:hover,
+.primary-link:hover {
+  background: #dceaff;
+  text-decoration: none;
+}
+
+.paper-link.disabled {
+  border-color: var(--line);
+  background: #f3f5f7;
+  color: #8a96a3;
+}
+
+.award-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.award-list li {
+  display: grid;
+  grid-template-columns: 5.2rem 1fr;
+  gap: 0.9rem;
+  padding: 0.36rem 0;
+}
+
+.award-list span {
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.award-list p {
+  margin: 0;
+}
+
+.cv-frame {
+  width: 100%;
+  height: 760px;
+  margin-top: 1rem;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface);
-}
-
-.skill-group p {
-  color: var(--muted);
 }
 
 @media (max-width: 860px) {
@@ -382,11 +421,7 @@ a:hover {
 
   .top-nav {
     overflow-x: auto;
-  }
-
-  .two-column,
-  .skill-grid {
-    grid-template-columns: 1fr;
+    padding-bottom: 0.65rem;
   }
 }
 
@@ -404,18 +439,27 @@ a:hover {
   }
 
   .portrait {
-    width: 128px;
-    height: 128px;
+    width: 142px;
+    height: 142px;
   }
 
-  .news-list li,
+  .section-heading,
+  .publication-header {
+    display: block;
+  }
+
+  .publication-markers {
+    display: inline-block;
+    margin-top: 0.2rem;
+  }
+
   .award-list li,
   .timeline-item {
     grid-template-columns: 1fr;
     gap: 0.15rem;
   }
 
-  .section-heading {
-    display: block;
+  .cv-frame {
+    height: 560px;
   }
 }

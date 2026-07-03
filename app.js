@@ -1,54 +1,97 @@
-// Rendering helpers keep index.html template-like and make the site easy to edit.
+// Shared renderer for every static page. Each HTML file declares its page type
+// with body[data-page], then this script fills only the containers on that page.
 const data = SITE_DATA;
+const currentPage = document.body.dataset.page;
 
 const $ = (selector) => document.querySelector(selector);
 
+const ICONS = {
+  email:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.75 5.75h16.5v12.5H3.75z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4.4 6.7 7.6 6.1 7.6-6.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  scholar:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.8 8.1 12 13.2l9.2-5.1L12 3Z" fill="currentColor"/><path d="M6.2 11.1v4.1c1.5 1.9 3.4 2.8 5.8 2.8s4.3-.9 5.8-2.8v-4.1L12 14.3l-5.8-3.2Z" fill="currentColor"/><path d="M20.2 9.4v5.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  github:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-2.1c-3.12.68-3.78-1.33-3.78-1.33-.51-1.31-1.25-1.66-1.25-1.66-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 .1 1.55 2.05 3.19 1.46.1-.72.39-1.22.71-1.5-2.49-.28-5.1-1.24-5.1-5.53 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.08 1.15A10.7 10.7 0 0 1 12 6.2c.95 0 1.9.13 2.8.38 2.13-1.45 3.07-1.15 3.07-1.15.61 1.54.23 2.68.11 2.96.72.78 1.15 1.78 1.15 3 0 4.3-2.62 5.25-5.12 5.53.41.35.77 1.03.77 2.08v3.09c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8Z"/></svg>',
+};
+
 function makeLink(item, className = "") {
   const link = document.createElement("a");
-  link.textContent = item.label;
   link.href = item.href;
   link.className = className;
   if (/^https?:\/\//.test(item.href)) {
     link.target = "_blank";
     link.rel = "noreferrer";
   }
+
+  if (item.icon) {
+    link.innerHTML = `${ICONS[item.icon] || ""}<span>${item.label}</span>`;
+  } else {
+    link.textContent = item.label;
+  }
   return link;
 }
 
-function renderProfileLinks() {
-  const container = $("#profile-links");
-  data.profile.links.forEach((item) => {
-    container.appendChild(makeLink(item, "profile-link"));
-  });
+function renderProfile() {
+  const profile = $(".profile");
+  profile.innerHTML = "";
+
+  const portrait = document.createElement("div");
+  portrait.className = "portrait";
+  const img = document.createElement("img");
+  img.src = data.profile.photo;
+  img.alt = `${data.profile.name} portrait`;
+  portrait.appendChild(img);
+  profile.appendChild(portrait);
+
+  const name = document.createElement("h1");
+  name.textContent = data.profile.name;
+  profile.appendChild(name);
+
+  const chineseName = document.createElement("p");
+  chineseName.className = "name-cn";
+  chineseName.textContent = data.profile.chineseName;
+  profile.appendChild(chineseName);
+
+  const title = document.createElement("p");
+  title.className = "profile-title";
+  title.textContent = data.profile.title;
+  profile.appendChild(title);
+
+  for (const value of [
+    data.profile.affiliation,
+    data.profile.advisor,
+    data.profile.location,
+  ]) {
+    const line = document.createElement("p");
+    line.className = "profile-meta";
+    line.textContent = value;
+    profile.appendChild(line);
+  }
+
+  const links = document.createElement("nav");
+  links.className = "profile-links";
+  links.setAttribute("aria-label", "External links");
+  data.profile.links.forEach((item) => links.appendChild(makeLink(item, "profile-link")));
+  profile.appendChild(links);
 }
 
-function renderProfile() {
-  $("#profile-name").textContent = data.profile.name;
-  $("#profile-name-cn").textContent = data.profile.chineseName;
-  $("#profile-title").textContent = data.profile.title;
-  $("#profile-affiliation").textContent = data.profile.affiliation;
-  $("#profile-location").textContent = data.profile.location;
+function renderNav() {
+  const nav = $(".top-nav");
+  if (!nav) return;
 
-  const portrait = $("#portrait");
-  if (data.profile.photo) {
-    const img = document.createElement("img");
-    img.src = data.profile.photo;
-    img.alt = `${data.profile.name} portrait`;
-    portrait.appendChild(img);
-  } else {
-    const initials = document.createElement("span");
-    initials.textContent = data.profile.name
-      .split(" ")
-      .map((part) => part[0])
-      .join("")
-      .slice(0, 2)
-      .toUpperCase();
-    portrait.appendChild(initials);
-  }
+  data.nav.forEach(([label, href, key]) => {
+    const link = document.createElement("a");
+    link.href = href;
+    link.textContent = label;
+    if (key === currentPage) link.setAttribute("aria-current", "page");
+    nav.appendChild(link);
+  });
 }
 
 function renderTags(selector, tags) {
   const container = $(selector);
+  if (!container) return;
+
   tags.forEach((tag) => {
     const badge = document.createElement("span");
     badge.textContent = tag;
@@ -56,69 +99,10 @@ function renderTags(selector, tags) {
   });
 }
 
-function renderNews() {
-  const list = $("#news-list");
-  data.news.forEach((item) => {
-    const li = document.createElement("li");
-    li.innerHTML = `<time>${item.date}</time><span>${item.text}</span>`;
-    list.appendChild(li);
-  });
-}
-
-function renderPublications() {
-  const list = $("#publication-list");
-  data.publications.forEach((paper) => {
-    const item = document.createElement("li");
-    item.className = "publication";
-
-    const title = document.createElement("h3");
-    title.textContent = paper.title;
-    item.appendChild(title);
-
-    const authors = document.createElement("p");
-    authors.className = "authors";
-    authors.textContent = paper.authors;
-    item.appendChild(authors);
-
-    const venue = document.createElement("p");
-    venue.className = "venue";
-    venue.textContent = paper.venue;
-    item.appendChild(venue);
-
-    const meta = document.createElement("div");
-    meta.className = "publication-meta";
-    paper.tags.forEach((tag) => {
-      const span = document.createElement("span");
-      span.textContent = tag;
-      meta.appendChild(span);
-    });
-    item.appendChild(meta);
-
-    // Disabled badges preserve Paper/Code markers until a public URL is added.
-    const actions = document.createElement("div");
-    actions.className = "paper-actions";
-    actions.appendChild(publicationAction("Paper", paper.paper, "Paper TBD"));
-    actions.appendChild(publicationAction("Code", paper.code, "Code TBD"));
-    item.appendChild(actions);
-
-    list.appendChild(item);
-  });
-}
-
-function publicationAction(label, href, fallbackLabel) {
-  if (href) {
-    return makeLink({ label, href }, "paper-link");
-  }
-
-  const span = document.createElement("span");
-  span.className = "paper-link disabled";
-  span.textContent = fallbackLabel;
-  span.setAttribute("aria-disabled", "true");
-  return span;
-}
-
 function renderTimeline(selector, items) {
   const container = $(selector);
+  if (!container) return;
+
   items.forEach((entry) => {
     const block = document.createElement("article");
     block.className = "timeline-item";
@@ -134,18 +118,112 @@ function renderTimeline(selector, items) {
   });
 }
 
-function renderSkills() {
-  const container = $("#skill-list");
-  data.skills.forEach((skill) => {
+function renderPublicationsByYear() {
+  const container = $("#publication-groups");
+  if (!container) return;
+
+  const years = [...new Set(data.publications.map((paper) => paper.year))].sort(
+    (a, b) => Number(b) - Number(a),
+  );
+
+  years.forEach((year) => {
     const group = document.createElement("section");
-    group.className = "skill-group";
-    group.innerHTML = `<h3>${skill.group}</h3><p>${skill.items.join(", ")}</p>`;
+    group.className = "publication-year";
+    group.innerHTML = `<h3>${year}</h3>`;
+
+    const list = document.createElement("ol");
+    list.className = "publication-list";
+
+    data.publications
+      .filter((paper) => paper.year === year)
+      .forEach((paper) => list.appendChild(renderPublication(paper)));
+
+    group.appendChild(list);
     container.appendChild(group);
   });
 }
 
+function renderPublication(paper) {
+  const item = document.createElement("li");
+  item.className = "publication";
+
+  const header = document.createElement("div");
+  header.className = "publication-header";
+  const title = document.createElement("h4");
+  title.textContent = paper.title;
+  header.appendChild(title);
+
+  const markers = publicationMarkers(paper);
+  if (markers) {
+    const marker = document.createElement("span");
+    marker.className = "publication-markers";
+    marker.textContent = markers;
+    header.appendChild(marker);
+  }
+  item.appendChild(header);
+
+  const authors = document.createElement("p");
+  authors.className = "authors";
+  paper.authors.forEach((author, index) => {
+    authors.appendChild(renderAuthor(author));
+    if (index < paper.authors.length - 1) authors.append(", ");
+  });
+  item.appendChild(authors);
+
+  const venue = document.createElement("p");
+  venue.className = "venue";
+  venue.textContent = paper.venue;
+  item.appendChild(venue);
+
+  const meta = document.createElement("div");
+  meta.className = "publication-meta";
+  paper.tags.forEach((tag) => {
+    const span = document.createElement("span");
+    span.textContent = tag;
+    meta.appendChild(span);
+  });
+  item.appendChild(meta);
+
+  // Every publication keeps visible Paper and Code markers; unavailable links
+  // render as disabled badges rather than disappearing.
+  const actions = document.createElement("div");
+  actions.className = "paper-actions";
+  actions.appendChild(publicationAction("Paper", paper.paper, "Paper TBD"));
+  actions.appendChild(publicationAction("Code", paper.code, "Code TBD"));
+  item.appendChild(actions);
+
+  return item;
+}
+
+function renderAuthor(author) {
+  const span = document.createElement("strong");
+  span.className = "author-name";
+  span.textContent = author;
+  if (author === data.profile.name) span.classList.add("self-author");
+  return span;
+}
+
+function publicationMarkers(paper) {
+  const markers = [];
+  if (paper.equalContribution) markers.push("*");
+  if (paper.correspondingAuthor) markers.push("#");
+  return markers.join("");
+}
+
+function publicationAction(label, href, fallbackLabel) {
+  if (href) return makeLink({ label, href }, "paper-link");
+
+  const span = document.createElement("span");
+  span.className = "paper-link disabled";
+  span.textContent = fallbackLabel;
+  span.setAttribute("aria-disabled", "true");
+  return span;
+}
+
 function renderAwards() {
   const list = $("#award-list");
+  if (!list) return;
+
   data.awards.forEach(([year, award]) => {
     const item = document.createElement("li");
     item.innerHTML = `<span>${year}</span><p>${award}</p>`;
@@ -155,15 +233,13 @@ function renderAwards() {
 
 function init() {
   renderProfile();
-  $("#bio").textContent = data.bio;
-  renderProfileLinks();
+  renderNav();
+
+  if ($("#bio")) $("#bio").textContent = data.bio;
   renderTags("#research-tags", data.researchInterests);
-  renderNews();
-  renderPublications();
-  renderTimeline("#project-list", data.projects);
-  renderTimeline("#experience-list", data.experience);
   renderTimeline("#education-list", data.education);
-  renderSkills();
+  renderTimeline("#project-list", data.projects);
+  renderPublicationsByYear();
   renderAwards();
 }
 
