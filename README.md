@@ -29,4 +29,4 @@
 
 如果要替换头像，把图片放进 `assets/`，然后把 `SITE_DATA.profile.photo` 改成对应路径，例如 `assets/profile.jpg`。
 
-Publications 已按年份分组，年份越新越靠前。每篇论文的 `paper` 和 `code` 字段会渲染为 `Paper / Code` 标识；没有公开链接时留空字符串即可。
+Publications 先分为一作/共一论文和非一作论文，两组内部都按年份从新到旧排列。每篇论文的 `paper` 和 `code` 字段会渲染为 `Paper / Code` 标识；没有公开链接时留空字符串即可。

@@ -118,28 +118,47 @@ function renderTimeline(selector, items) {
   });
 }
 
-function renderPublicationsByYear() {
+function renderPublications() {
   const container = $("#publication-groups");
   if (!container) return;
 
-  const years = [...new Set(data.publications.map((paper) => paper.year))].sort(
-    (a, b) => Number(b) - Number(a),
-  );
+  const sections = [
+    {
+      title: "First-Author / Co-first Publications",
+      papers: data.publications.filter((paper) => paper.primaryContribution),
+    },
+    {
+      title: "Other Publications",
+      papers: data.publications.filter((paper) => !paper.primaryContribution),
+    },
+  ];
 
-  years.forEach((year) => {
-    const group = document.createElement("section");
-    group.className = "publication-year";
-    group.innerHTML = `<h3>${year}</h3>`;
+  sections.forEach((section) => {
+    const sectionBlock = document.createElement("section");
+    sectionBlock.className = "publication-category";
+    sectionBlock.innerHTML = `<h3>${section.title}</h3>`;
 
-    const list = document.createElement("ol");
-    list.className = "publication-list";
+    const years = [...new Set(section.papers.map((paper) => paper.year))].sort(
+      (a, b) => Number(b) - Number(a),
+    );
 
-    data.publications
-      .filter((paper) => paper.year === year)
-      .forEach((paper) => list.appendChild(renderPublication(paper)));
+    years.forEach((year) => {
+      const group = document.createElement("section");
+      group.className = "publication-year";
+      group.innerHTML = `<h4>${year}</h4>`;
 
-    group.appendChild(list);
-    container.appendChild(group);
+      const list = document.createElement("ol");
+      list.className = "publication-list";
+
+      section.papers
+        .filter((paper) => paper.year === year)
+        .forEach((paper) => list.appendChild(renderPublication(paper)));
+
+      group.appendChild(list);
+      sectionBlock.appendChild(group);
+    });
+
+    container.appendChild(sectionBlock);
   });
 }
 
@@ -239,7 +258,7 @@ function init() {
   renderTags("#research-tags", data.researchInterests);
   renderTimeline("#education-list", data.education);
   renderTimeline("#project-list", data.projects);
-  renderPublicationsByYear();
+  renderPublications();
   renderAwards();
 }
 
