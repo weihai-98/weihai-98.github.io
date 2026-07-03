@@ -111,10 +111,37 @@ function renderTimeline(selector, items) {
       <div>
         <h3>${entry.title}</h3>
         <p class="role">${entry.role}</p>
-        <p>${entry.summary}</p>
+        ${entry.summary ? `<p>${entry.summary}</p>` : ""}
       </div>
     `;
     container.appendChild(block);
+  });
+}
+
+function renderBio() {
+  const bio = $("#bio");
+  if (!bio) return;
+
+  const highlights = data.bioHighlights || [];
+  const pattern = highlights
+    .map((name) => name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("|");
+
+  if (!pattern) {
+    bio.textContent = data.bio;
+    return;
+  }
+
+  data.bio.split(new RegExp(`(${pattern})`, "g")).forEach((part) => {
+    if (!part) return;
+    if (highlights.includes(part)) {
+      const span = document.createElement("strong");
+      span.className = "highlight-name";
+      span.textContent = part;
+      bio.appendChild(span);
+    } else {
+      bio.append(part);
+    }
   });
 }
 
@@ -254,7 +281,7 @@ function init() {
   renderProfile();
   renderNav();
 
-  if ($("#bio")) $("#bio").textContent = data.bio;
+  renderBio();
   renderTags("#research-tags", data.researchInterests);
   renderTimeline("#education-list", data.education);
   renderTimeline("#project-list", data.projects);

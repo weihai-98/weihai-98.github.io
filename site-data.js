@@ -39,7 +39,9 @@ const SITE_DATA = {
   ],
 
   bio:
-    "I am a Postdoctoral Fellow in the Department of Electronic and Computer Engineering at The Hong Kong University of Science and Technology, advised by Prof. Yuan Xie. My research focuses on AI chip design, ML system design, heterogeneous computing, and neural network model compression for LLMs, GNNs, and CNNs. I received my Ph.D. degree through the direct Ph.D. program at the Institute of Automation, Chinese Academy of Sciences, where I was affiliated with the Efficient Intelligent Computing and Learning Lab. I have published first-author papers in top-tier conferences and journals including IEEE Transactions on Computers, ASPLOS, HPCA, DAC, ICML, and ICLR, and have served as a reviewer for CVPR, ICCV, NeurIPS, AAAI, and IEEE TPDS.",
+    "I am a Postdoctoral Fellow in the Department of Electronic and Computer Engineering at The Hong Kong University of Science and Technology, advised by Prof. Yuan Xie. My research focuses on AI chip design, ML system design, heterogeneous computing, and neural network model compression for LLMs, GNNs, and CNNs. I received my Ph.D. degree through the direct Ph.D. program at the Institute of Automation, Chinese Academy of Sciences, advised by Prof. Jian Cheng, where I was affiliated with the Efficient Intelligent Computing and Learning Lab. I have published first-author papers in top-tier conferences and journals including IEEE Transactions on Computers, ASPLOS, HPCA, DAC, ICML, and ICLR, and have served as a reviewer for CVPR, ICCV, NeurIPS, AAAI, and IEEE TPDS.",
+
+  bioHighlights: ["Prof. Yuan Xie", "Prof. Jian Cheng"],
 
   researchInterests: [
     "AI chip design",
@@ -55,13 +57,13 @@ const SITE_DATA = {
       title: "Institute of Automation, Chinese Academy of Sciences",
       role: "Ph.D., Pattern Recognition and Intelligent System",
       period: "2021.9 - 2026.6",
-      summary: "GPA: 3.92/4",
+      summary: "",
     },
     {
       title: "Zhejiang University",
       role: "B.Eng., Mechatronic Engineering",
       period: "2017.9 - 2021.6",
-      summary: "GPA: 4.66/5, Ranking: 1/181",
+      summary: "",
     },
   ],
 

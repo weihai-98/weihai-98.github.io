@@ -345,10 +345,15 @@ a:hover {
   font-weight: 800;
 }
 
+.highlight-name,
 .self-author {
   text-decoration: underline;
   text-underline-offset: 0.16em;
   text-decoration-thickness: 0.08em;
+}
+
+.highlight-name {
+  font-weight: 800;
 }
 
 .venue {
