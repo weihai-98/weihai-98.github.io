@@ -263,7 +263,7 @@ const SITE_DATA = {
       primaryContribution: true,
       tags: ["First Author", "GNN Accelerator", "Hardware"],
       paper: "https://arxiv.org/abs/2311.09775",
-      code: "",
+      code: "https://github.com/weihai-98/A-2Q",
     },
     {
       title:
