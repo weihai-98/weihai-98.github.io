@@ -87,7 +87,7 @@ const SITE_DATA = {
       tags: ["First Author", "MoE", "Pruning"],
       paper:
         "https://63dac.conference-program.com/presentation/?id=RESEARCH094&sess=sess145",
-      code: "",
+      code: "https://anonymous.4open.science/r/KL-MoE-a/README.md",
     },
     {
       title:
@@ -110,8 +110,8 @@ const SITE_DATA = {
       year: "2026",
       primaryContribution: true,
       tags: ["Equal Contribution", "MoE", "Pruning"],
-      paper: "",
-      code: "",
+      paper: "https://openreview.net/pdf?id=SGIQXw1OGu",
+      code: "https://github.com/Saul-James/RaGEP",
     },
     {
       title:
