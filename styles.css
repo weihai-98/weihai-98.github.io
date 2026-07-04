@@ -320,20 +320,7 @@ a:hover {
 }
 
 .publication-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.publication-markers {
-  flex: 0 0 auto;
-  min-width: 1.7rem;
-  color: #9b4a00;
-  font-size: 1rem;
-  font-weight: 800;
-  line-height: 1;
-  text-align: right;
+  display: block;
 }
 
 .authors {
@@ -343,6 +330,14 @@ a:hover {
 
 .author-name {
   font-weight: 800;
+}
+
+.author-marker {
+  margin-left: 0.08rem;
+  color: #9b4a00;
+  font-size: 0.78em;
+  font-weight: 800;
+  line-height: 0;
 }
 
 .highlight-name,
@@ -461,14 +456,8 @@ a:hover {
     height: 142px;
   }
 
-  .section-heading,
-  .publication-header {
+  .section-heading {
     display: block;
-  }
-
-  .publication-markers {
-    display: inline-block;
-    margin-top: 0.2rem;
   }
 
   .award-list li,

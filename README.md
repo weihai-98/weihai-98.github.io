@@ -30,3 +30,5 @@
 如果要替换头像，把图片放进 `assets/`，然后把 `SITE_DATA.profile.photo` 改成对应路径，例如 `assets/profile.jpg`。
 
 Publications 先分为一作/共一论文和非一作论文，两组内部都按年份从新到旧排列。每篇论文的 `paper` 和 `code` 字段会渲染为 `Paper / Code` 标识；没有公开链接时留空字符串即可。
+
+共一作者在论文数据中写到 `equalContributionAuthors`，通讯作者写到 `correspondingAuthors`，页面会在对应作者姓名右上角分别显示 `*` 和 `#`。

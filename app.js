@@ -198,20 +198,12 @@ function renderPublication(paper) {
   const title = document.createElement("h4");
   title.textContent = paper.title;
   header.appendChild(title);
-
-  const markers = publicationMarkers(paper);
-  if (markers) {
-    const marker = document.createElement("span");
-    marker.className = "publication-markers";
-    marker.textContent = markers;
-    header.appendChild(marker);
-  }
   item.appendChild(header);
 
   const authors = document.createElement("p");
   authors.className = "authors";
   paper.authors.forEach((author, index) => {
-    authors.appendChild(renderAuthor(author));
+    authors.appendChild(renderAuthor(author, paper));
     if (index < paper.authors.length - 1) authors.append(", ");
   });
   item.appendChild(authors);
@@ -241,19 +233,31 @@ function renderPublication(paper) {
   return item;
 }
 
-function renderAuthor(author) {
-  const span = document.createElement("strong");
-  span.className = "author-name";
-  span.textContent = author;
-  if (author === data.profile.name) span.classList.add("self-author");
-  return span;
+function renderAuthor(author, paper) {
+  const wrapper = document.createElement("span");
+  wrapper.className = "author-with-marker";
+
+  const name = document.createElement("strong");
+  name.className = "author-name";
+  name.textContent = author;
+  if (author === data.profile.name) name.classList.add("self-author");
+  wrapper.appendChild(name);
+
+  authorMarkers(author, paper).forEach((markerText) => {
+    const marker = document.createElement("sup");
+    marker.className = "author-marker";
+    marker.textContent = markerText;
+    wrapper.appendChild(marker);
+  });
+
+  return wrapper;
 }
 
-function publicationMarkers(paper) {
+function authorMarkers(author, paper) {
   const markers = [];
-  if (paper.equalContribution) markers.push("*");
-  if (paper.correspondingAuthor) markers.push("#");
-  return markers.join("");
+  if ((paper.equalContributionAuthors || []).includes(author)) markers.push("*");
+  if ((paper.correspondingAuthors || []).includes(author)) markers.push("#");
+  return markers;
 }
 
 function publicationAction(label, href, fallbackLabel) {
