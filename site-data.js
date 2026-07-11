@@ -70,6 +70,33 @@ const SITE_DATA = {
   publications: [
     {
       title:
+        "FLUTE: A LUT-Based Floating-Point Engine for Efficient LLM Acceleration Exploiting Core-Tail Hierarchical Alignment",
+      authors: [
+        "Tielong Liu",
+        "Zeyu Zhu",
+        "Gang Li",
+        "Chen Bai",
+        "Zitao Mo",
+        "Junwen Si",
+        "Peihuan Ni",
+        "Peimin Nan",
+        "Peisong Wang",
+        "Zhuoran Song",
+        "Xiaoyao Liang"
+        "Jian Cheng",
+      ],
+      equalContributionAuthors: ["Wentao Hu", "Zeyu Zhu"],
+      correspondingAuthors: [],
+      venue: "MICRO 2026, CCF-A",
+      year: "2026",
+      primaryContribution: true,
+      tags: [ "LLM", "LUT"],
+      paper:
+        "",
+      code: "",
+    },
+    {
+      title:
         "KL-MoE: A Hierarchical MoE Pruning Framework Exploiting KL Divergence",
       authors: [
         "Zeyu Zhu",
