@@ -144,7 +144,7 @@ const SITE_DATA = {
       title:
         "AdaOff: An Adaptive Offloading Framework for LLMs Inference on Local PCs",
       authors: ["Zeyu Zhu", "Gang Li", "Zitao Mo", "Peisong Wang", "Jian Cheng"],
-      venue: "Under Review",
+      venue: "TCAD 2026, CCF-A",
       year: "2026",
       primaryContribution: true,
       tags: [ "LLM", "Offloading"],
