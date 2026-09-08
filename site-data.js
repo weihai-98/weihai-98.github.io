@@ -68,6 +68,57 @@ const SITE_DATA = {
   ],
 
   publications: [
+    {
+      title:
+        "ACE-VLA: Action Centric Evaluation for Token Pruning in Vision-Language-Action Models",
+      authors: [
+    "Peihuan Ni",
+    "Zeyu Zhu",
+    "Weifan Guan",
+    "Gang Li",
+    "Zitao Mo",
+    "Minnan Pei",
+    "Tielong Liu",
+    "Junwen Si",
+    "Qinghao Hu",
+    "Peisong Wang",
+    "Jian Cheng",
+     ],
+      equalContributionAuthors: ["Peihuan Ni", "Zeyu Zhu"],
+      correspondingAuthors: [],
+      venue: "MICRO 2026, CCF-A",
+      year: "2026",
+      primaryContribution: true,
+      tags: [ "LLM", "LUT"],
+      paper:
+        "",
+      code: "",
+    },
+    {
+      title:
+        "	DeGS: A Scalable 3DGS Architecture via Decoupled Workload Parsing and Reorganization",
+      authors: [
+        "MinNan Pei",
+        "Gang Li",
+        "Zeyu Zhu",
+        "Siting Wang",
+        "Junwen Si",
+        "Zhuoran Song",
+        "Yu Feng",
+        "Fangxin Liu",
+        "Xiaoyao Liang",
+        "Jian Cheng",
+      ],
+      equalContributionAuthors: ["MinNan Pei", "Zeyu Zhu"],
+      correspondingAuthors: [],
+      venue: "MICRO 2026, CCF-A",
+      year: "2026",
+      primaryContribution: true,
+      tags: [ "3DGS", "Architecture"],
+      paper:
+        "https://arxiv.org/abs/2608.02099",
+      code: "",
+    },
         {
       title:
         "FLUTE: A LUT-Based Floating-Point Engine for Efficient LLM Acceleration Exploiting Core-Tail Hierarchical Alignment",
