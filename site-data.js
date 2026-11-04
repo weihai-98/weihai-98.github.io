@@ -215,12 +215,12 @@ const SITE_DATA = {
         "Xiaoyao Liang",
         "Jian Cheng",
       ],
-      venue: "Under Review",
-      year: "2026",
+      venue: "HPCA 2027, CCF-A",
+      year: "2027",
       primaryContribution: true,
       tags: [ "MoE", "Offloading"],
       paper: "https://arxiv.org/abs/2602.03495",
-      code: "",
+      code: "https://anonymous.4open.science/r/DALI-1",
     },
     {
       title:
